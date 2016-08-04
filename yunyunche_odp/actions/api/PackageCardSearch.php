@@ -8,7 +8,6 @@ class Action_PackageCardSearch extends Ap_Action_Abstract {
 		$userId = $arrInput['user_id'];
 		$packageCardId = $arrInput['package_card_id'];
 		$used = $arrInput['used'];
-		//$packageCardId = "1";
 		if (!empty($userId)){
 
 			//$packageCode = "XCK1";
