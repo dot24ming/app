@@ -1,0 +1,61 @@
+<?php
+/**
+ * @name Action_Logcheck
+ * @desc sample action, 和url对应
+ * @author 吴伟佳
+ */
+class Action_AddOutstockDemand extends Ap_Action_Abstract {
+
+	public function execute() {
+		$data = array();
+		
+		$db_client  = new Dao_DBbase();
+
+		$arrRequest = Saf_SmartMain::getCgi();
+		$arrInput = $arrRequest['post'];
+
+		/*
+		$arrInput["name"] = 'wuweijia';
+		$arrInput["phone"] = '13800138000';
+		$arrInput["store_id"] = 57;
+		$arrInput["department_id"] = 4;
+		$arrInput["wechat"] = 'wechat open id';
+		$arrInput["wechat_nickname"] = "weijia";
+		//$user_openid = Tool_WeiXin::getOpenid();
+		*/
+		$arrInput["form_id"] = 74;
+
+		if(!isset($arrInput["form_id"]) or $arrInput["form_id"]=="")
+		{
+			return Tool_Util::returnJson($data,-1,'form_id not exist');
+		}
+
+
+		$param = array(
+				'form_id' => $arrInput["form_id"],
+				'status' => 0,
+				'update_time' => date('Y-m-d H:i:s',time())
+			);
+
+		$result_select = $db_client->select("model_mobile_service_outstock_demand",'*',' form_id='.$arrInput["form_id"],NULL,NULL);
+		if ($result_select!==false and count($result_select)>0)
+		{
+			return Tool_Util::returnJson($data,0,'succ');
+		}
+		else
+		{
+			$result_insert = $db_client->insert("model_mobile_service_outstock_demand",$param);
+			if ($result_insert!==false and count($result_insert)>0)
+			{
+				return Tool_Util::returnJson($data,0,'succ');
+			}
+			else
+			{
+				return Tool_Util::returnJson($data, -1, 'apply error');
+			}
+		}
+
+		return Tool_Util::returnJson($data,0,'succ');
+	}
+
+}
