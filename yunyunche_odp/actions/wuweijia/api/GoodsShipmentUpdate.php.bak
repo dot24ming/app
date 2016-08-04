@@ -1,0 +1,67 @@
+<?php 
+class Action_GoodsShipmentUpdate extends Saf_Api_Base_Action {
+	public function execute() {
+		$isAdmin = Service_Data_User::isAdmin();
+		if (!$isAdmin) {
+			return Tool_Util::returnJson('' , 1 , '非管理员，无权限');
+		}
+
+		$arrRequest = Saf_SmartMain::getCgi();
+        $arrInput = $arrRequest['post'];
+		$shipmentId = $arrInput['shipment_id'];
+
+		if (empty($shipmentId)) {
+			return Tool_Util::returnJson('', 1, '参数错误');
+		}
+
+		$goodsShipmentDao = new Dao_GoodsShipment();
+		$goodsShipmentDao->startTransaction();
+		$goodsShipmentDetail['shipment_type'] = $arrInput['outstock_type'];
+		$goodsShipmentDetail['operator'] = $arrInput['delivery_man'];
+		$goodsShipmentDetail['censor'] = $arrInput['warehouse_auditor'];
+		$goodsShipmentDetail['remarks'] = $arrInput['remarks'];
+		$goodsShipmentDetail['total_num'] = $arrInput['sum_count'];
+		$goodsShipmentDetail['total_price'] = $arrInput['sum_price'];
+		$goodsShipmentDetail['total_net_price'] = $arrInput[sum_net_price'];
+		$ret = $goodsShipmentDao->update($shipmentId, $goodsShipmentDetail);
+		if (!$ret) {
+			$goodsShipmentDao->rollback();
+			return Tool_Util::returnJson('', 1, '更新失败');
+		}
+
+		$goodsShipmentInfoDao = new Dao_GoodsShipmentInfo();
+		$goodsInfos = $goodsShipmentInfoDao->getInfo($shipmentId);
+		if (!empty($goodsInfos) && is_array($goodsInfos)) {
+			foreach ($goodsInfos as $goodsInfo) {
+				$oldItems[$item['goods_id']] = array(
+					'goods_id' => $goodsInfo['goods_id'],
+					'price' => $goodsInfo['price'],
+					'number' => $goodsInfo['number'],
+					'storage_price' => $goodsInfo['storage_price'],
+					'shipment_price' => $goodsInfo['shipment_price'],
+					'remarks' => $goodsInfo['remarks'],
+				);
+			}
+		} else {
+			$oldItems = array();
+		}
+		
+		$items = json_decode($arrInput['instock_items'], true);
+		if (!empty($items) && is_array($items)) {
+			foreach ($items as $item) {
+				$newItems[$item['goods_id']] = array(
+					'goods_id' => $item['goods_id'],
+					'price' => $item['sum'],
+					'number' => $item['count'],
+					'storage_price' => $item['storage_price'],
+					'shipment_price' => $item['shipment_price'],
+					'remarks' => $item['remarks'],
+				);
+			}
+		} else {
+			$newItems = array();	
+		}
+		$result['outstock_items'] = json_encode($items);
+		return Tool_Util::returnJson($result);
+	}
+}
