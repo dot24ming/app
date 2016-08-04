@@ -1,11 +1,11 @@
 <?php 
 class Dao_SupplierInfo extends Dao_Base {
 	const TABLE = 'supplier_info';
-	static $table = "supplier_info";
+	static $table = 'supplier_info';
 
 	public function __construct($storeId = null) {
 		parent::__construct();
-		//self::$table = Tool_Util::getStoreTable(self::$table);
+		self::$table = Tool_Util::getStoreTable(self::$table);
     }
 	
 	public function getInfo() {

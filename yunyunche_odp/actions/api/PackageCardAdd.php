@@ -26,20 +26,20 @@ class Action_PackageCardAdd extends Ap_Action_Abstract {
 			$packageCode = $package['package_code'];
 			$packageNameDb = $packageDao->getPackageByCode($packageCode);
 			if (empty($packageNameDb)){
-				return Tool_Util::returnJson('', 1);
+				return Tool_Util::returnJson('no code', 1);
 			}
 			$packageName = $packageNameDb[0]['package_name'];
 			$pack['package_name'] = $packageName;
 			//$pack['package_type'] = $package['package_type'];
 			//$pack['package_price'] = $package['package_price'];
 			//$pack['package_expiration'] = $package['package_expiration'];
-			$packageExpiration = $packageNameDb[0]['package_expiration'];
-			$pack['deadline'] = date('y-m-d',time() + ($packageExpiration*24*3600));
+			//$packageExpiration = $packageNameDb[0]['package_expiration'];
+			//$pack['deadline'] = date('y-m-d',time() + ($packageExpiration*24*3600));
 			$pack['active_date'] = date('y-m-d H:i:s',time());
 			$pack['user_id'] = $userId;
 			$pack['saleman'] = $saleman;
 			$pack['settlement'] = $settlement;
-			$pack['remark'] = $remark.$packageExpiration."test";
+			$pack['remark'] = $remark."test";
 			$pack['package_discount'] = $package['package_discount'];
 			$pack['package_cost'] = $package['package_cost'];
 			$allCost += $package['package_cost'];
@@ -54,6 +54,8 @@ class Action_PackageCardAdd extends Ap_Action_Abstract {
 			}
 			foreach($packageInfos as $packageInfo){
 				$packageCodeCardInfo = array();
+				$packageExpiration = $packageInfo['package_expiration'];
+				$packageCodeCardInfo['deadline'] = date('y-m-d',time() + ($packageExpiration*24*3600));
 				$packageCodeCardInfo['package_card_id'] = $cardId;
 				$packageCodeCardInfo['item_id'] = $packageInfo['item_id'];
 				$packageCodeCardInfo['item_name'] = $packageInfo['item_name'];
