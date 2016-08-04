@@ -5,7 +5,7 @@ class Dao_SupplierInfo extends Dao_Base {
 
 	public function __construct($storeId = null) {
 		parent::__construct();
-		//self::$table = Tool_Util::getStoreTable(self::$table);
+		self::$table = Tool_Util::getStoreTable(self::$table);
     }
 	
 	public function getInfo() {
