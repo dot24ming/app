@@ -19,7 +19,11 @@ class Dao_MatchSupplier {
 
 		$name = $arrInput["name"];
 
+<<<<<<< HEAD
 		$result_select = $this->db_client->select(Tool_Util::getStoreTable('supplier_info'),'*',
+=======
+		$result_select = $this->db_client->select(  Tool_Util::getStoreTable('supplier_info') ,'*',
+>>>>>>> fd913230326500fded8600185c7a13889d64ab44
 			' supplier_name like "'.$name.'%"',NULL,NULL);
 
 		$return_arr = array(

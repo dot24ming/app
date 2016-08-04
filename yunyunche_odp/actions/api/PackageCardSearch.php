@@ -27,6 +27,12 @@ class Action_PackageCardSearch extends Ap_Action_Abstract {
 					//}
 					$infos = array();
 					foreach ($packageCardInfo as $packageCardInf){
+						if ($packageCardInf['deadline'] < date('y-m-d',time())){
+							$packageCardInf['expired'] = 1;	
+						}
+						else {
+							$packageCardInf['expired'] = 0;
+						}
 						if ($packageCardInf['item_left_counts'] > 0){
 							array_push($infos, $packageCardInf);
 						}
@@ -57,6 +63,12 @@ class Action_PackageCardSearch extends Ap_Action_Abstract {
 			$packageCardInfo = $packageCardInfoDao->getPackageCardInfoByCardId($packageCard['package_card_id']);
 			if (empty($packageCardInfo)){
 				return Tool_Util::returnJson('', 1);
+			}
+			if ($packageCardInfo['deadline'] < date('y-m-d',time())){
+				$packageCardInfo['expired'] = 1;	
+			}
+			else {
+				$packageCardInfo['expired'] = 0;
 			}
 			$packageCard['info'] = $packageCardInfo;
 

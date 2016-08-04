@@ -25,10 +25,10 @@ class Action_PackageAdd extends Ap_Action_Abstract {
 		if (empty($packageType)){
 			$packageType = 0;
 		}
-		$packageExpiration = $arrInput['package_expiration'];
-		if (empty($packageExpiration)){
-			$packageExpiration = 0;
-		}
+		//$packageExpiration = $arrInput['package_expiration'];
+		//if (empty($packageExpiration)){
+		//	$packageExpiration = 0;
+		//}
 		$integral = $arrInput['integral'];
 		if (empty($integral)){
 			$integral = "";
@@ -47,7 +47,7 @@ class Action_PackageAdd extends Ap_Action_Abstract {
 		$pack['package_name'] = $packageName;
 		$pack['package_price'] = $packagePrice;
 		$pack['package_type'] = $packageType;
-		$pack['package_expiration'] = $packageExpiration;
+		//$pack['package_expiration'] = $packageExpiration;
 		$pack['integral'] = $integral;
 
 		$packageDao = new Dao_Package(Tool_Const::$storeId);
@@ -65,6 +65,7 @@ class Action_PackageAdd extends Ap_Action_Abstract {
 			$packInfo['item_type'] = $packageInfo['item_type'];
 			$packInfo['item_counts'] = $packageInfo['item_counts'];
 			$packInfo['item_cost'] = $packageInfo['item_cost'];
+			$packInfo['package_expiration'] = $packageInfo['package_expiration'];
 			$ret = $packageInfoDao->addPackageInfo($packInfo);
 			if (!$ret){
 				$packageDao->rollback();

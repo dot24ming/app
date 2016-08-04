@@ -1,7 +1,7 @@
 <?php 
 class Dao_SupplierInfo extends Dao_Base {
 	const TABLE = 'supplier_info';
-	static $table = "supplier_info";
+	static $table = 'supplier_info';
 
 	public function __construct($storeId = null) {
 		parent::__construct();
