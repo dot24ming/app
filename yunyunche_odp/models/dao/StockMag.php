@@ -64,6 +64,7 @@ class Dao_StockMag extends Dao_Base{
 				'purchaser' => $purchaser,
 				'remarks' => $remarks,
 				'maintance_id' => $instock_plan,
+				'service_form_id' => $instock_plan,
 				'plate_number' => $plate_number,
 
 				'total_num' => $sum_count,
