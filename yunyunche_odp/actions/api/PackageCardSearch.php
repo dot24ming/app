@@ -27,7 +27,7 @@ class Action_PackageCardSearch extends Ap_Action_Abstract {
 					//}
 					$infos = array();
 					foreach ($packageCardInfo as $packageCardInf){
-						if ($packageCardInf['deadline'] < date('y-m-d',time())){
+						if ($packageCardInf['deadline'] < date('Y-m-d',time())){
 							$packageCardInf['expired'] = 1;	
 						}
 						else {
@@ -64,7 +64,7 @@ class Action_PackageCardSearch extends Ap_Action_Abstract {
 			if (empty($packageCardInfo)){
 				return Tool_Util::returnJson('', 1);
 			}
-			if ($packageCardInfo['deadline'] < date('y-m-d',time())){
+			if ($packageCardInfo['deadline'] < date('Y-m-d',time())){
 				$packageCardInfo['expired'] = 1;	
 			}
 			else {
