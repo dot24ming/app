@@ -25,7 +25,7 @@ class Action_ReportSearch extends Ap_Action_Abstract {
 		$mobileServiceFormInfoDao = new Dao_MobileServiceFormInfo(Tool_Const::$storeId);
 		$mobileServicesDao = new Dao_MobileServices(Tool_Const::$storeId);
 		$serviceForms = array();
-		$serviceForms = $mobileServiceFormDao->getServiceFormByTime("", $timeStart, $timeEnd);
+		$serviceForms = $mobileServiceFormDao->getServiceFormBySSTime(1, $timeStart, $timeEnd);
 		if (empty($serviceForms)){
 			return Tool_Util::returnJson('', 1, "无查询结果");
 		}
@@ -81,7 +81,7 @@ class Action_ReportSearch extends Ap_Action_Abstract {
 		}
 	
 		foreach ($data as $dat){
-			$tim[] = $dat['time'];
+			$tim[] = $dat['settlement_time'];
 		}
 
 		array_multisort($tim, SORT_DESC, $data);

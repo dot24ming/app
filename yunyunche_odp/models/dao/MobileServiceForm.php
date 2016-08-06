@@ -78,6 +78,33 @@ class Dao_MobileServiceForm extends Dao_Base {
 		return $ret;
 	}
 
+	// 结算时间
+	public function getServiceFormBySSTime($status, $timeStart, $timeEnd){
+		if (!empty($status) && !empty($timeStart) && !empty($timeEnd)){
+			$cond = array("status = " => $status,
+						"settlement_time >= " => $timeStart,
+						"settlement_time <= " => $timeEnd,
+				);
+		}
+		else if (!empty($timeStart) && !empty($timeEnd)){
+			$cond = array("settlement_time >= " => $timeStart,
+						"settlement_time<= " => $timeEnd,
+				);
+		}
+		else if (!empty($status)){
+			$cond = array("status = " => $status,
+				);
+		}
+		else{
+			$cond = null;	
+		}
+		$append = array(
+					"order by settlement_time desc"
+		);
+		$ret = $this->objDB->select(self::$table, '*', $cond, null, $append);
+		return $ret;
+	}
+
 	public function getServiceFormByFormIds($formIds){
 		
 		$cond = array(
