@@ -97,6 +97,10 @@ class Tool_Authority {
 			'/api/supplierinfo',
 			'/api/supplierupdate',
 			'/api/mobilesubmitservice',
+			'/api/instockexport',
+			'/api/outstockexport',
+			'/api/inventoryexport',
+			'/api/transferexport',
 		),
 
 		1001 => array('/api/inscustomer','/api/getprovince','/api/seluser'),

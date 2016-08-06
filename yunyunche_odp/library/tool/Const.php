@@ -36,6 +36,13 @@ class Tool_Const {
 		'other' => 7,
 		);
 
+	static $form_status_e2c = array(
+		'reviewing' => '待审核',
+		'reviewed' => '已审核',
+		'rejected' => '审核未通过',
+	);
+
+
 	static $Instock_status = array(
 		"reviewing" => "reviewing",
 		"reviewed" => "reviewed",
@@ -67,11 +74,24 @@ class Tool_Const {
 		"rejected" => "rejected",
 	);
 
+	static $storage_type_e2c = array(
+		'maintenance' => '维修入库',
+		'purchase' => '日常采购',
+		'inventory' => '盘盈入库',
+		'transfer' => '调拨入库',
+	);
 	static $Instock_type = array(
 		'maintenance' => 'maintenance',
 		'purchase' => 'purchase',
 		'inventory' => 'inventory',
-		'transfer' => 'transfer'
+		'transfer' => 'transfer',
+	);
+
+	static $shipment_type_e2c = array(
+		'maintenance' => '维修出库',
+		'sale' => '销售出库',
+		'loss' => '损丢出库',
+		'return' => '退货出库',
 	);
 	static $Outstock_type = array(
 		'maintenance' => 'maintenance',
