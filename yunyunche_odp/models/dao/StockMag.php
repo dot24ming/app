@@ -248,6 +248,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_storage_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							/*
@@ -266,6 +267,11 @@ class Dao_StockMag extends Dao_Base{
 									$new_avg = $new_price*1.0/$new_count;
 
 									$storage_abs[$curr_item['name']] = 0;
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_storage_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 								
 									/* do it on review action TODO
 									$update_item_param = array(
@@ -364,6 +370,7 @@ class Dao_StockMag extends Dao_Base{
 		 */  
 		//$outstock_id = $arrInput["outstock_id"];
 		$author = $arrInput["author"];
+		$admin_name = $arrInput["admin_name"];
 
 		//$admin_info = Tool_Const::$adminInfo;
 		//$author = $admin_info['name'];
@@ -418,6 +425,8 @@ class Dao_StockMag extends Dao_Base{
 				'total_net_price' => $sum_net_price,
 				'total_price' => $sum_price, //TODO who computes? 
 				'time' => $datetime,
+				'review_time' => $datetime,
+				'censor' => $admin_name,
 
 				'shipment_status' => $outstock_status,
 				'author' => $author,
@@ -589,6 +598,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_shipment_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							/*
@@ -606,6 +616,11 @@ class Dao_StockMag extends Dao_Base{
 									$new_avg = $new_price*1.0/$new_count;
 
 									$new_service_demand = $curr_item['service_demand'] - $count;
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_shipment_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 
 									///* do it on review action 
 									// quick ins instock, do not need to review
@@ -929,6 +944,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_shipment_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							/*
@@ -937,7 +953,7 @@ class Dao_StockMag extends Dao_Base{
 							$succ_flag = false;
 							for($j=0; $j<5; $j++)
 							{
-								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'instock_count,instock_price,instock_avg',' goods_id='.$item_id,NULL,NULL);
+								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'name,instock_count,instock_price,instock_avg',' goods_id='.$item_id,NULL,NULL);
 								if(count($result_select)>0)
 								{
 									$curr_item = $result_select[0];
@@ -945,6 +961,11 @@ class Dao_StockMag extends Dao_Base{
 									$new_price = $curr_item['instock_price'] - $count*$curr_item['instock_avg'];
 									$new_avg = $new_price*1.0/$new_count;
 
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_shipment_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 									/* do it on review action TODO
 									$update_item_param = array(
 											'instock_count' => $new_count,
@@ -1185,6 +1206,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_transfer_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							/*
@@ -1195,7 +1217,7 @@ class Dao_StockMag extends Dao_Base{
 							$succ_flag = false;
 							for($j=0; $j<5; $j++)
 							{
-								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
+								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'name,instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
 								if(count($result_select)>0)
 								{
 									$curr_item = $result_select[0];
@@ -1204,6 +1226,10 @@ class Dao_StockMag extends Dao_Base{
 									$new_avg = $new_price*1.0/$new_count;
 								
 
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_transfer_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 									/* do it on review action TODO
 									$update_item_param = array(
 											'instock_count' => $new_count,
@@ -1442,6 +1468,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_inventory_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							//$succ_flag = true;
@@ -1454,7 +1481,7 @@ class Dao_StockMag extends Dao_Base{
 							$succ_flag = false;
 							for($j=0; $j<5; $j++)
 							{
-								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
+								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'name,instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
 								if(count($result_select)>0)
 								{
 									$curr_item = $result_select[0];
@@ -1462,6 +1489,11 @@ class Dao_StockMag extends Dao_Base{
 									$new_price = $curr_item['instock_price'] + $count*$unit_price;
 									$new_avg = $new_price*1.0/$new_count;
 								
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_inventory_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 									/* do it on review action TODO
 									$update_item_param = array(
 											'instock_count' => $new_count,
@@ -1693,6 +1725,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_inventory_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							//$succ_flag = true;
@@ -1705,13 +1738,18 @@ class Dao_StockMag extends Dao_Base{
 							$succ_flag = false;
 							for($j=0; $j<5; $j++)
 							{
-								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
+								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'name,instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
 								if(count($result_select)>0)
 								{
 									$curr_item = $result_select[0];
 									$new_count = $curr_item['instock_count'] + $count;
 									$new_price = $curr_item['instock_price'] + $count*$unit_price;
 									$new_avg = $new_price*1.0/$new_count;
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_inventory_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 								
 									$update_item_param = array(
 											'instock_count' => $new_count,
@@ -1989,6 +2027,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_purchase_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{
 							/*
@@ -1998,7 +2037,7 @@ class Dao_StockMag extends Dao_Base{
 							$succ_flag = false;
 							for($j=0; $j<5; $j++)
 							{
-								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
+								$result_select = $this->db_client->select(Tool_Util::getStoreTable('goods_info'),'name,instock_count,instock_price',' goods_id='.$item_id,NULL,NULL);
 								if(count($result_select)>0)
 								{
 									$curr_item = $result_select[0];
@@ -2006,6 +2045,11 @@ class Dao_StockMag extends Dao_Base{
 									$new_price = $curr_item['instock_price'] + $count*$unit_price;
 									$new_avg = $new_price*1.0/$new_count;
 								
+
+									$name_update_param = array(
+											'name' => $curr_item['name'],
+										);
+									$this->db_client->update(Tool_Util::getStoreTable('goods_purchase_info'),$name_update_param,' id='.$result_insert_id,NULL,NULL);
 									/* do it on review action TODO
 									$update_item_param = array(
 											'instock_count' => $new_count,
@@ -2192,6 +2236,7 @@ class Dao_StockMag extends Dao_Base{
 					for ($i=0; $i<5;$i++) //retry 5 times
 					{
 						$result_insert = $this->db_client->insert(Tool_Util::getStoreTable('goods_quote_info'),$param);
+						$result_insert_id = $this->db_client->getInsertID();
 						if ($result_insert != false)
 						{	
 							$succ_flag = true;
