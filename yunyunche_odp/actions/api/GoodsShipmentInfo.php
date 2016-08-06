@@ -17,6 +17,7 @@ class Action_GoodsShipmentInfo extends Saf_Api_Base_Action {
 		$shipmentDetail = $goodsShipmentDao->getInfo($shipmentId);
 		$result['outstock_type'] = $shipmentDetail['shipment_type'];
 		$result['outstock_warehouse'] = $shipmentDetail['storehouse_name'];
+		$result['outstock_department'] = $shipmentDetail['department'];
 		$result['delivery_man'] = $shipmentDetail['operator'];
 		$result['warehouse_auditor'] = $shipmentDetail['author'];
 		$result['remarks'] = $shipmentDetail['remarks'];
