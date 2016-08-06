@@ -29,6 +29,23 @@ class Dao_GoodsStorage extends Dao_Base {
 		return $ret;
 	}
 
+	public function getListByTime($start, $end, &$total, $startDate, $endDate) {
+		$append = array('order by storage_id desc');
+		$options = array('SQL_CALC_FOUND_ROWS');
+		$cond = array('is_del =' => 0);
+
+		if (!empty($startDate) && !empty($endDate) && $startDate < $endDate) {
+            $cond['time >'] = $startDate;
+            $cond['time <'] = $endDate;
+        } 
+
+        $sql = $this->objSQLAssember->getSelect(self::$table, '*', $cond, $options, $append);
+        $ret = $this->queryWithCount($sql, $total); 
+
+		//var_dump($ret);
+
+		return $ret;
+	}
 
 	public function getInfo($storageId) {
 		$cond = array(  
