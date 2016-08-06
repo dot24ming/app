@@ -3,7 +3,7 @@ class Action_MobileSubSearch extends Ap_Action_Abstract {
 	public function execute() {
 		$arrRequest = Saf_SmartMain::getCgi();
 		$arrInput = $arrRequest['get'];
-		$query = $arrInput['address'];
+		$query = urldecode($arrInput['address']);
 		$type = $arrInput['type'];
 		$num = $arrInput['num'];
 
