@@ -37,7 +37,7 @@ class Tool_Authority {
 	// api权限控制
 	static $apiAuth = array(
 		// api接口
-		1 => array('/api/sample', '/api/addstore','/api/selstore','/api/modstorestatus','/api/insstore', '/api/changestatus','/api/getcity','/api/getdistrict','/api/getbrand','/api/getseries', '/api/getprovince', '/api/matchgoods', '/api/matchsupplier', '/api/getcategorylist', '/api/matchcar', '/api/checkadminname', '/api/mobilecheckcaruser', '/api/goodsstoragelist', '/api/goodsshipmentlist', '/api/goodsinventorylist', '/api/goodspurchaselist', '/api/goodsinventoryinfo', '/api/goodspurchaseinfo', '/api/goodsshipmentinfo', '/api/goodsstorageinfo', '/api/mobilegetseries', '/api/mobilesetuserinfo', '/api/mobilesetcarinfo','/api/checkgoodsnumber', '/api/mobileservicesearch', '/api/mobilesubmitservice', '/api/mobileserviceselect', '/api/mobileserviceformsearch', '/api/mobilesubsearch', '/api/mobileserviceformload', '/api/addserviceinfo', '/api/mobilegetemployee', '/api/membercharge', '/api/clientbusiness', '/api/packagesearch', '/api/packagecardsearch', '/api/packageadd', '/api/packagecardadd', '/api/reportsearch', '/api/reportbalancesearch','/api/memberbuybusiness','/api/packagebuybusiness','/api/membercomhistory','/api/packagecomhistory', '/api/qrcode','/api/selcustomer', '/api/reportbalancesearchload', '/api/reportsearchload', '/api/quickserviceformsearch','/api/quickstock','/api/getgoodsdetail'),
+		1 => array('/api/sample', '/api/addstore','/api/selstore','/api/modstorestatus','/api/insstore', '/api/changestatus','/api/getcity','/api/getdistrict','/api/getbrand','/api/getseries', '/api/getprovince', '/api/matchgoods', '/api/matchsupplier', '/api/getcategorylist', '/api/matchcar', '/api/checkadminname', '/api/mobilecheckcaruser', '/api/goodsstoragelist', '/api/goodsshipmentlist', '/api/goodsinventorylist', '/api/goodspurchaselist', '/api/goodsinventoryinfo', '/api/goodspurchaseinfo', '/api/goodsshipmentinfo', '/api/goodsstorageinfo', '/api/mobilegetseries', '/api/mobilesetuserinfo', '/api/mobilesetcarinfo','/api/checkgoodsnumber', '/api/mobileservicesearch', '/api/mobileserviceselect', '/api/mobileserviceformsearch', '/api/mobilesubsearch', '/api/mobileserviceformload', '/api/addserviceinfo', '/api/mobilegetemployee', '/api/membercharge', '/api/clientbusiness', '/api/packagesearch', '/api/packagecardsearch', '/api/packageadd', '/api/packagecardadd', '/api/reportsearch', '/api/reportbalancesearch','/api/memberbuybusiness','/api/packagebuybusiness','/api/membercomhistory','/api/packagecomhistory', '/api/qrcode','/api/selcustomer', '/api/reportbalancesearchload', '/api/reportsearchload', '/api/quickserviceformsearch','/api/quickstock','/api/getgoodsdetail'),
 
 		// 无需特定权限，只要登录就能访问
 		0 => array(
@@ -96,6 +96,7 @@ class Tool_Authority {
 			'/api/supplierlist',
 			'/api/supplierinfo',
 			'/api/supplierupdate',
+			'/api/mobilesubmitservice',
 		),
 
 		1001 => array('/api/inscustomer','/api/getprovince','/api/seluser'),
