@@ -15,10 +15,12 @@ class Action_MobileServiceFormSearch extends Ap_Action_Abstract {
 		if (empty($timeEnd)){
 			$timeEnd = "";
 		}
+		/*前端timeEnd增加一天传
 		else{
 			$halfDay = date(' H:i:s',time());
 			$timeEnd = $timeEnd.$halfDay;  
 		}
+		*/
 		
 		$userId = $arrInput['user_id'];
 		if (empty($userId)){

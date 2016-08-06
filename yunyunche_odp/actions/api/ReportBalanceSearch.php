@@ -14,10 +14,12 @@ class Action_ReportBalanceSearch extends Ap_Action_Abstract {
 		if (empty($timeEnd)){
 			$timeEnd = date('y-m-d h:i:s',time());
 		}
+		/**前端timeEnd增加一天传
 		else{
 			$halfDay = date(' H:i:s',time());
 			$timeEnd = $timeEnd.$halfDay;  
 		}
+		**/
 		$start = $arrInput['start'];
 		if (empty($start)){
 			$start = 0;
