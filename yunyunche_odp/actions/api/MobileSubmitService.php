@@ -1,6 +1,10 @@
 <?php 
 class Action_MobileSubmitService extends Ap_Action_Abstract {
 	public function execute() {
+
+		//$admin_info = Tool_Const::$adminInfo;
+
+
 		$arrRequest = Saf_SmartMain::getCgi();
 		$arrInput = $arrRequest['post'];
 		//var_dump($arrInput);
@@ -370,14 +374,13 @@ class Action_MobileSubmitService extends Ap_Action_Abstract {
 
 			$outstock_param = array();
 
-			//$admin_info = Tool_Const::$adminInfo;
-			//$admin_name = $admin_info['name'];
-			//TODO
-			$admin_name = '新时速';
+			$admin_info = Tool_Const::$adminInfo;
+			$admin_name = $admin_info['name'];
+			//$admin_name = '新时速';
 			$outstock_param['author'] = $admin_name;
 
-			//$admin_store_id = $admin_info["store_id"];
-			$admin_store_id = '新时速-美车汇';
+			$admin_store_id = $admin_info["store_id"];
+			//$admin_store_id = '新时速-美车汇';
 			$outstock_param['warehouse_id'] = $admin_store_id;
 
 			//$form_status = Tool_Const::$Outstock_status["reviewed"];
@@ -520,6 +523,7 @@ class Action_MobileSubmitService extends Ap_Action_Abstract {
 				$outstock_param['total_net_price'] = $total_net_price;
 				$outstock_param['total_price'] = $total_price;
 				$outstock_param['outstock_plan'] = $formId;
+				$outstock_param['admin_name'] = $admin_info['name'];
 
 				//var_dump($outstock_param);
 
