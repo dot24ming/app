@@ -102,6 +102,10 @@ class Controller_Api extends Ap_Controller_Abstract {
 		'membercomhistory' => 'actions/api/MemberComHistory.php',
 		'packagecomhistory' => 'actions/api/PackageComHistory.php',
 		'getgoodsdetail' => 'actions/api/GetGoodsDetail.php',
+		'instockexport' => 'actions/api/InstockExport.php',
+		'outstockexport' => 'actions/api/OutstockExport.php',
+		'inventoryexport' => 'actions/api/InventoryExport.php',
+		'transferexport' => 'actions/api/TransferExport.php',
 	
 
 		#ycx
