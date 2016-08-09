@@ -158,9 +158,6 @@ class Dao_SelCustomer {
 		}
 
 		$valid = $arrInput['valid'];
-
-
-
 				$brand = $arrInput['brand'];
 				$series = $arrInput['series'];
 
@@ -177,6 +174,7 @@ class Dao_SelCustomer {
 				$series_id = $result_select;
 
 
+			$uniq_car_select_result  = $this->db_client->select(Tool_Util::getStoreTable('car_info'),'valid', ' plate_number="'.$plate_number.'"',NULL,NULL);
 			$uniq_car_select_count = $this->db_client->selectCount(Tool_Util::getStoreTable('car_info'),
 				' plate_number="'.$plate_number.'"',NULL,NULL);
 			if ($uniq_car_select_count!=0)
@@ -194,6 +192,10 @@ class Dao_SelCustomer {
 						'car_buy_time' => $carBuyTime,
 						'valid' => $valid,
 					);
+				// 存在的置删除车辆直接转移owner
+				if ($uniq_car_select_result[0]['valid'] == '0') {
+					$param['owner_id'] = $owner_id;
+				}
 				if (count($series_id)>0){
 					$param['series'] = $series_id[0]['series_id'];
 				}else {
