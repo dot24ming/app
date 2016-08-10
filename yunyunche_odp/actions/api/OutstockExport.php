@@ -69,8 +69,8 @@ class Action_OutstockExport extends Ap_Action_Abstract {
 		//var_dump($list);
 		//exit;
 		$curr_time = date('y-m-d',time());
-		$fileName = Tool_Util::createExcelCommon('出库报表-'.$curr_time, $titles, $data);
-		return Tool_Util::returnFile($fileName, '出库报表-'.$curr_time.'.xlsx');
+		$fileName = Tool_ExcelUtil::createExcelCommon('出库报表-'.$curr_time, $titles, $data);
+		return Tool_ExcelUtil::returnFile($fileName, '出库报表-'.$curr_time.'.xlsx');
 		exit;
 
 		
